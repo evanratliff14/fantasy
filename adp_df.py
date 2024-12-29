@@ -75,7 +75,7 @@ class FantasyData:
         if len(fp)==1:
             # adjust for lengthened 18-game nfl seasons past 2020 
             if row['year'] in ([2021, 2022, 2023, 2024]):
-                fpts = (fp['fantasy_points_ppr'].iloc[0]) *(17/18)
+                fpts = (fp['fantasy_points_ppr'].iloc[0]) *(16/17)
             else:
                 fpts = (fp['fantasy_points_ppr'].iloc[0])
             return fpts
@@ -149,14 +149,14 @@ class FantasyData:
             sum_largest = data.nlargest((pos_startable_num.get(position))*len(year_list), 'fpts')['fpts'].sum() #.iloc[(pos_startable_num.get(position))*len(year_list)-1]
             average = ((sum_largest/(pos_startable_num.get(position)*len(year_list))))
             print(position, " average starter's fpts per season = ", average)
-            data['fpts'] = (data['fpts']-average)/17
+            data['fpts'] = (data['fpts']-average)/16
             sns.regplot(x=x, y=y, data=data, order = pos_order.get(position), label=position, scatter_kws={'s': 5})
 
         plt.title('Drafting Positional Advantage: Positional FPTs per game above \navg. replacement starter per pick, PPR')
         plt.xlim(0, 175)
         plt.ylim(-10, 10)
         plt.xlabel("Average Draft Position (data from 2010-2023, fantasyfootballcalculator.com)")
-        plt.ylabel("17-game Adjusted Avg. Fantasy Points Per Game \nabove avg. replacement starter")
+        plt.ylabel("16-game Adjusted Avg. Fantasy Points Per Game \nabove avg. replacement starter")
         # handles arg puts dotted line in legend
         plt.legend(title="Position", handles=plt.gca().get_legend_handles_labels()[0] + [line])
         plt.show()
